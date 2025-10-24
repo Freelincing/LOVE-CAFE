@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Cafe - Ponta de Ouro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: transparent;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff4757;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff4757;
+        }
+
+        .lang-toggle {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .lang-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.199), rgba(0, 0, 0, 0.185)),
+                        url('img/mockup_love_cafe_landing_page\ edited.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+       
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: rgb(0, 0, 0);
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.6);
+        }
+
+        .section {
+            padding: 5rem 5%;
+        }
+
+        .about {
+            background: linear-gradient(180deg, gray, #000);
+            color: white;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #ff6b81;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 107, 129, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff6b81;
+        }
+
+        .feature-card h3 {
+            color: #ffa502;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .gallery {
+            background: #000;
+            color: white;
+        }
+
+        .gallery h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #ff4757;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff4757, #ff6b81, #ffa502);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            line-height: 2;
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">❤️ Love Cafe</div>
+        <div class="nav-links">
+            <a href="#home" class="nav-link" data-pt="Início" data-en="Home">Início</a>
+            <a href="#about" class="nav-link" data-pt="Sobre" data-en="About">Sobre</a>
+            <a href="#gallery" class="nav-link" data-pt="Galeria" data-en="Gallery">Galeria</a>
+            <a href="#contact" class="nav-link" data-pt="Contato" data-en="Contact">Contato</a>
+            <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title" data-pt="LOVE CAFE" data-en="LOVE CAFE">LOVE CAFE</h1>
+            <p class="hero-subtitle" data-pt="Experiência única em Ponta de Ouro - Onde o sol nasce e os momentos se tornam eternos" data-en="Unique experience in Ponta de Ouro - Where the sun rises and moments become eternal">
+                Experiência única em Ponta de Ouro - Onde o sol nasce e os momentos se tornam eternos
+            </p>
+            <button class="cta-button" data-pt="RESERVE SUA MESA" data-en="RESERVE YOUR TABLE">RESERVE SUA MESA</button>
+        </div>
+    </section>
+
+    <section class="section about" id="about">
+        <h2 class="about-title" data-pt="Bem-vindo ao Paraíso" data-en="Welcome to Paradise">Bem-vindo ao Paraíso</h2>
+        <p class="about-text" data-pt="Há mais de 5 anos, o Love Cafe tem sido o coração vibrante de Ponta de Ouro, uma das zonas turísticas mais deslumbrantes de Moçambique. Localizado estrategicamente em um ponto privilegiado, oferecemos a você a oportunidade única de contemplar o nascer do sol enquanto desfruta de momentos inesquecíveis." data-en="For over 5 years, Love Cafe has been the vibrant heart of Ponta de Ouro, one of Mozambique's most stunning tourist areas. Strategically located at a prime spot, we offer you the unique opportunity to witness the sunrise while enjoying unforgettable moments.">
+            Há mais de 5 anos, o Love Cafe tem sido o coração vibrante de Ponta de Ouro, uma das zonas turísticas mais deslumbrantes de Moçambique. Localizado estrategicamente em um ponto privilegiado, oferecemos a você a oportunidade única de contemplar o nascer do sol enquanto desfruta de momentos inesquecíveis.
+        </p>
+
+        <div class="features">
+            <div class="feature-card">
+                <img src="" alt="">
+                <h3 class="feature-title" data-pt="Vista Espetacular" data-en="Spectacular View">Vista Espetacular</h3>
+                <p class="feature-text" data-pt="Nascer do sol inesquecível direto da sua mesa" data-en="Unforgettable sunrise right from your table">Nascer do sol inesquecível direto da sua mesa</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎉</h3>
+                <h3 class="feature-title" data-pt="Eventos Exclusivos" data-en="Exclusive Events">Eventos Exclusivos</h3>
+                <p class="feature-text" data-pt="Espaço perfeito para festas e celebrações" data-en="Perfect space for parties and celebrations">Espaço perfeito para festas e celebrações</p>
+            </div>
+            <div class="feature-card">
+                <h3>🏖️</h3>
+                <h3 class="feature-title" data-pt="Clima de Praia" data-en="Beach Atmosphere">Clima de Praia</h3>
+                <p class="feature-text" data-pt="Ambiente relaxante à beira-mar" data-en="Relaxing seaside environment">Ambiente relaxante à beira-mar</p>
+            </div>
+            <div class="feature-card">
+                <h3>⭐</h3>
+                <h3 class="feature-title" data-pt="5+ Anos de Excelência" data-en="5+ Years of Excellence">5+ Anos de Excelência</h3>
+                <p class="feature-text" data-pt="Tradição e qualidade comprovadas" data-en="Proven tradition and quality">Tradição e qualidade comprovadas</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="nightlife-section">
+        <div class="nightlife-content">
+            <div class="nightlife-intro">
+                <h2>
+                    <span class="lang-pt">Noites Mágicas no Florestinha</span>
+                    <span class="lang-en hidden">Magical Nights at Florestinha</span>
+                </h2>
+                <p>
+                    <span class="lang-pt">Quando o sol se põe, o Florestinha do Índico se transforma em um cenário mágico. As luzes suaves, a brisa do mar, o som das ondas e a música ao vivo criam uma atmosfera única e romântica. Nossos shows e eventos especiais já receberam centenas de pessoas que buscam viver momentos inesquecíveis à beira-mar. Cada noite é uma celebração da vida, da boa música e da excelente companhia.</span>
+                    <span class="lang-en hidden">When the sun sets, Florestinha do Índico transforms into a magical setting. The soft lights, sea breeze, sound of waves and live music create a unique and romantic atmosphere. Our shows and special events have already welcomed hundreds of people seeking to live unforgettable moments by the sea. Each night is a celebration of life, good music and excellent company.</span>
+                </p>
+            </div>
+
+            <h3>
+                <span class="lang-pt"> Espetáculos Realizados</span>
+                <span class="lang-en hidden"> Past Shows</span>
+            </h3>
+            <h3>
+                <span class="lang-pt">🎉 Próximos Eventos</span>
+                <span class="lang-en hidden">🎉 Upcoming Events</span>
+            </h3>
+
+            <div class="shows-grid">
+                <div class="show-card">
+                    <div class="show-image">
+                        <img src="florestinha img/florestinha show de comida.jpg" alt="festa de comida">
+                        <div class="show-badge">
+                            <span class="lang-pt">NOVIDADE</span>
+                            <span class="lang-en hidden">NEW</span>
+                        </div>
+                    </div>
+                    <div class="show-info">
+                        <h3>
+                            <span class="lang-pt">Noite Acústica</span>
+                            <span class="lang-en hidden">Acoustic Night</span>
+                        </h3>
+                        <p>
+                            <span class="lang-pt">Show especial com músicos acústicos tocando os maiores clássicos da música moçambicana e internacional. Ambiente intimista e romântico perfeito para casais.</span>
+                            <span class="lang-en hidden">Special show with acoustic musicians playing the greatest classics of Mozambican and international music. Intimate and romantic atmosphere perfect for couples.</span>
+                        </p>
+                        <p class="show-date">
+                            <span class="lang-pt">15 de Novembro, 19:00</span>
+                            <span class="lang-en hidden">November 15th, 7:00 PM</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-image">
+                        <img src="florestinha img/florestinha event2.jpg" alt="festa esgotada">
+                        <div class="show-badge">
+                            <span class="lang-pt">LIMITADO</span>
+                            <span class="lang-en hidden">LIMITED</span>
+                        </div>
+                    </div>
+                    <div class="show-info">
+                        <h3>
+                            <span class="lang-pt">Festa de Natal</span>
+                            <span class="lang-en hidden">Christmas Party</span>
+                        </h3>
+                        <p>
+                            <span class="lang-pt">Grande celebração de Natal com jantar especial, música ao vivo, DJ e decoração temática. Traga sua família para uma noite inesquecível à beira-mar!</span>
+                            <span class="lang-en hidden">Big Christmas celebration with special dinner, live music, DJ and themed decoration. Bring your family for an unforgettable night by the sea!</span>
+                        </p>
+                        <p class="show-date">📅 
+                            <span class="lang-pt">24 de Dezembro, 20:00</span>
+                            <span class="lang-en hidden">December 24th, 8:00 PM</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="show-card">
+                    <div class="show-image">
+                        <img src="florestinha img/festa florestinha.jpeg" alt="festa">
+                        <div class="show-badge">
+                            <span class="lang-pt">IMPERDÍVEL</span>
+                            <span class="lang-en hidden">UNMISSABLE</span>
+                        </div>
+                    </div>
+                    <div class="show-info">
+                        <h3>
+                            <span class="lang-pt">Réveillon 2026</span>
+                            <span class="lang-en hidden">New Year's Eve 2026</span>
+                        </h3>
+                        <p>
+                            <span class="lang-pt">Receba o ano novo com chave de ouro! Jantar gourmet, open bar premium, shows especiais e queima de fogos espetacular. Reservas abertas - vagas limitadas!</span>
+                            <span class="lang-en hidden">Welcome the new year in style! Gourmet dinner, premium open bar, special shows and spectacular fireworks. Reservations open - limited spots!</span>
+                        </p>
+                        <p class="show-date">
+                            <span class="lang-pt">31 de Dezembro, 21:00</span>
+                            <span class="lang-en hidden">December 31st, 9:00 PM</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <section class="couple-section" id="casal">
+        <div class="section-header">
+            <h2> Experiências Românticas para Casais</h2>
+            <p>Momentos especiais merecem sabores inesquecíveis. Crie memórias perfeitas com quem ama.</p>
+        </div>
+        <div class="couple-content">
+            <div class="couple-gallery">
+                <div class="couple-image-card">
+                    <img src="img/glasses of wine.jpeg" alt="Jantar ao pôr do sol" class="couple-image">
+                    <div class="couple-overlay">
+                        <h4>Taças Vinhos</h4>
+                        <p>Vista panorâmica do oceano</p>
+                    </div>
+                </div>
+                <div class="couple-image-card">
+                    <img src="img/Couple cofee.jpeg" alt="Mesa romântica" class="couple-image">
+                    <div class="couple-overlay">
+                        <h4>Mesa Romântica</h4>
+                        <p>Ambiente intimista e acolhedor</p>
+                    </div>
+                </div>
+                <div class="couple-image-card">
+                    <img src="img/Azure - понравился цвет_ _Сделай репост 🔆__https___vk_com_wall-224299363_1635.jpeg" alt="Jantar à luz de velas" class="couple-image">
+                    <div class="couple-overlay">
+                        <h4>Jantar à Luz de Velas</h4>
+                        <p>Perfeito para ocasiões especiais</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="couple-recommendations">
+                <h3 style="text-align: center; font-size: 2.5rem; color: #c41e3a; margin-bottom: 10px;">Recomendações Especiais para Casais</h3>
+                <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 1.1rem;">Selecionamos as melhores opções para tornar o seu momento único</p>
+                
+                <div class="recommendations-grid">
+                    <div class="recommendation-category">
+                        <h3> Pratos Românticos</h3>
+                        <div class="recommendation-item">
+                            <h4>Mariscada para Dois</h4>
+                            <p>Uma seleção generosa de mariscos frescos: lagosta, camarão, amêijoas e lulas. Perfeito para partilhar.</p>
+                            <span class="price">A partir de 3.500 MT</span>
+                        </div>
+
+                        <div class="recommendation-item">
+                            <h4>Caril de Amendoim com Camarão</h4>
+                            <p>Prato tradicional moçambicano preparado com camarões gigantes e arroz aromático.</p>
+                            <span class="price">A partir de 2.500 MT</span>
+                        </div>
+
+
+                        <div class="recommendation-item">
+                            <h4>Vinho do Porto</h4>
+                            <p>Seleção de vinhos do Porto tinto ou branco para acompanhar sobremesa.</p>
+                            <span class="price">A partir de 800 MT</span>
+                        </div>
+
+
+                
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #fff5f5, #ffe8e8); border-radius: 15px;">
+                    <h4 style="color: #c41e3a; font-size: 1.5rem; margin-bottom: 15px;">🎁 Pacote Romance Completo</h4>
+                    <p style="color: #666; font-size: 1.1rem; margin-bottom: 20px;">
+                        Mesa decorada com velas e pétalas de rosa + Mariscada para Dois + Garrafa de Champagne + Sobremesa especial
+                    </p>
+                    <p style="color: #c41e3a; font-size: 1.8rem; font-weight: 700;">5.800 MT</p>
+                    <p style="color: #666; font-size: 0.9rem; margin-top: 10px;"><em>*Reserva com 24h de antecedência</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+        <section class="location-section" id="localizacao">
+        <div class="section-header">
+            <h2> Onde Nos Encontrar</h2>
+            <p>Visite-nos no paraíso da Ponta do Ouro</p>
+        </div>
+        <div class="location-content">
+            <div>
+                <img src="img/487154181_1075007821313024_8170534041401318014_n.jpg" alt="Roaz do Índico - Exterior" class="location-image">
+            </div>
+            <div class="location-info">
+                <h3>Visite o Nosso Paraíso</h3>
+                <div class="location-details">
+                    <div class="location-item">
+                        <span class="location-icon"></span>
+                        <div>
+                            <strong>Endereço:</strong><br>
+                            Ponta do Ouro, Rua A - Praceta 65<br>
+                            Maputo, Moçambique
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon"></span>
+                        <div>
+                            <strong>Telefone:</strong><br>
+                            +258 84 40 88 822
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon"></span>
+                        <div>
+                            <strong>Horário:</strong><br>
+                            Todos os dias: 08:00 - 23:00<br>
+                            <em>Cozinha fecha às 22:00</em>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <span class="location-icon"></span>
+                        <div>
+                            <strong>Localização:</strong><br>
+                            À beira-mar com vista espetacular
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.google.com/maps/place/Roaz+do+Indico/@-26.8415814,32.8835571,844m/data=!3m2!1e3!4b1!4m6!3m5!1s0x1ee48fbd26b3601f:0x103868ec07c4f3e9!8m2!3d-26.8415862!4d32.886132!16s%2Fg%2F11k2441m8b?entry=ttu&g_ep=EgoyMDI1MTAxMy4wIKXMDSoASAFQAw%3D%3D" class="map-button">Ver no Google Maps</a>
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                
+                <div class="footer-col footer-col-left">
+                    <h3 class="footer-title" style="font-family: 'comic Sans MS', cursive;">
+                        Roaz Do Índico
+                    </h3>
+                    <p class="footer-description">
+                        <span class="lang-pt">O sabor autêntico de Moçambique em cada prato, com a hospitalidade calorosa que nos define.</span>
+                        <span class="lang-en hidden">The authentic flavor of Mozambique in every dish, with the warm hospitality that defines us.</span>
+                    </p>
+                </div>
+                
+                <div class="footer-col footer-col-center">
+                    <h4 class="footer-subtitle">
+                        <span class="lang-pt">Redes Sociais</span>
+                        <span class="lang-en hidden">Social Media</span>
+                    </h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon-facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon-instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon-whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-col footer-col-right">
+                    <h4 class="footer-subtitle">
+                        <span class="lang-pt">Contato</span>
+                        <span class="lang-en hidden">Contact</span>
+                    </h4>
+                    <p class="contact-detail">
+                        <i class="fas fa-phone mr-2"></i>
+                        +258 860 000 000
+                    </p>
+                    <p class="contact-detail">
+                        <i class="fas fa-envelope mr-2"></i>
+                        info@florestinha.co.mz
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>
+                    <span class="lang-pt">&copy; 2025 Roaz do Índico. Todos os direitos reservados. 🇲🇿</span>
+                    <span class="lang-en hidden">&copy; 2025 Roaz do Índico. All rights reserved. 🇲🇿</span>
+                </p>
+                <p class="footer-bottom-text-small">
+                    powered by zeinadine
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'pt';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'pt' ? 'en' : 'pt';
+            const btn = document.querySelector('.lang-toggle');
+            btn.textContent = currentLang === 'pt' ? 'EN' : 'PT';
+
+            document.querySelectorAll('[data-pt][data-en]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
