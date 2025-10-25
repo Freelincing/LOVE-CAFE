@@ -853,78 +853,94 @@
             const btn = document.getElementById('get-location-btn');
             const statusDiv = document.getElementById('location-status');
             
-            // Mostrar status de carregamento
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span>${translations[currentLang].gettingLocation}</span>`;
-            btn.disabled = true;
-            statusDiv.classList.add('hidden');
-            
+            // Verificar se o navegador suporta geolocalização
             if (!navigator.geolocation) {
                 alert(currentLang === 'pt' 
                     ? 'Seu navegador não suporta geolocalização.' 
                     : 'Your browser does not support geolocation.');
-                resetLocationButton();
                 return;
             }
 
+            // Mostrar status de carregamento
+            const loadingText = `<i class="fas fa-spinner fa-spin"></i> <span class="translate" data-pt="Obtendo localização..." data-en="Getting location...">Obtendo localização...</span>`;
+            btn.innerHTML = loadingText;
+            btn.disabled = true;
+            statusDiv.classList.add('hidden');
+            
+            console.log('Solicitando localização...');
+
             navigator.geolocation.getCurrentPosition(
                 function(position) {
+                    console.log('Localização obtida com sucesso:', position);
+                    
                     userLocation = {
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude,
                         accuracy: position.coords.accuracy
                     };
                     
+                    console.log('userLocation salva:', userLocation);
+                    
                     // Mostrar sucesso
                     statusDiv.innerHTML = `
                         <span class="text-green-600 font-semibold">
                             <i class="fas fa-check-circle"></i>
-                            <span>${translations[currentLang].locationSuccess}</span>
+                            ✓ Localização capturada! (${userLocation.latitude.toFixed(4)}, ${userLocation.longitude.toFixed(4)})
                         </span>
                     `;
                     statusDiv.classList.remove('hidden');
                     
-                    resetLocationButton();
-                    
-                    console.log('Localização capturada:', userLocation);
+                    // Resetar botão
+                    btn.innerHTML = `<i class="fas fa-check"></i> <span class="translate" data-pt="Localização Obtida ✓" data-en="Location Obtained ✓">Localização Obtida ✓</span>`;
+                    btn.disabled = false;
+                    btn.classList.add('opacity-75');
                 },
                 function(error) {
                     console.error('Erro ao obter localização:', error);
                     
-                    let errorMsg = translations[currentLang].locationError;
+                    let errorMsg = '';
                     
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
                             errorMsg = currentLang === 'pt' 
-                                ? 'Você negou o acesso à localização. Por favor, permita o acesso nas configurações.' 
-                                : 'You denied location access. Please allow access in settings.';
+                                ? '❌ Você negou o acesso à localização. Por favor, permita o acesso nas configurações do navegador.' 
+                                : '❌ You denied location access. Please allow access in browser settings.';
+                            console.log('Permissão negada pelo usuário');
                             break;
                         case error.POSITION_UNAVAILABLE:
                             errorMsg = currentLang === 'pt' 
-                                ? 'Informação de localização indisponível.' 
-                                : 'Location information unavailable.';
+                                ? '❌ Informação de localização indisponível. Verifique se o GPS está ativado.' 
+                                : '❌ Location information unavailable. Check if GPS is enabled.';
+                            console.log('Posição indisponível');
                             break;
                         case error.TIMEOUT:
                             errorMsg = currentLang === 'pt' 
-                                ? 'A solicitação expirou. Tente novamente.' 
-                                : 'The request timed out. Try again.';
+                                ? '⏱️ A solicitação expirou. Tente novamente.' 
+                                : '⏱️ The request timed out. Try again.';
+                            console.log('Timeout');
                             break;
+                        default:
+                            errorMsg = currentLang === 'pt' 
+                                ? '❌ Erro desconhecido ao obter localização.' 
+                                : '❌ Unknown error getting location.';
+                            console.log('Erro desconhecido:', error);
                     }
                     
                     alert(errorMsg);
-                    resetLocationButton();
+                    
+                    // Resetar botão
+                    btn.innerHTML = `<i class="fas fa-map-marker-alt"></i> <span class="translate" data-pt="📍 Tentar Novamente" data-en="📍 Try Again">📍 Tentar Novamente</span>`;
+                    btn.disabled = false;
+                    
+                    statusDiv.innerHTML = `<span class="text-red-600 font-semibold">${errorMsg}</span>`;
+                    statusDiv.classList.remove('hidden');
                 },
                 {
                     enableHighAccuracy: true,
-                    timeout: 10000,
+                    timeout: 15000,
                     maximumAge: 0
                 }
             );
-        }
-
-        function resetLocationButton() {
-            const btn = document.getElementById('get-location-btn');
-            btn.innerHTML = `<i class="fas fa-map-marker-alt"></i> <span>${translations[currentLang].locationButton}</span>`;
-            btn.disabled = false;
         }
 
         function switchMenu(menuName) {
@@ -1151,6 +1167,9 @@
             document.getElementById('customer-name').placeholder = translations.pt.namePlaceholder;
             document.getElementById('customer-phone').placeholder = translations.pt.phonePlaceholder;
             document.getElementById('customer-address').placeholder = translations.pt.addressPlaceholder;
+            
+            // Adicionar evento ao botão de localização
+            document.getElementById('get-location-btn').addEventListener('click', getLocation);
             
             // Close modals on backdrop click
             document.querySelectorAll('.modal').forEach(modal => {
