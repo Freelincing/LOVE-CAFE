@@ -292,6 +292,21 @@
                 <input type="text" id="customer-name" class="p-3 rounded-full border-2 border-gray-300 focus:border-red-400 focus:outline-none" placeholder="">
                 <input type="text" id="customer-phone" class="p-3 rounded-full border-2 border-gray-300 focus:border-red-400 focus:outline-none" placeholder="">
             </div>
+            <div class="mt-4">
+                <input type="text" id="customer-address" class="w-full p-3 rounded-full border-2 border-gray-300 focus:border-red-400 focus:outline-none" placeholder="">
+            </div>
+            <div class="mt-4 flex items-center justify-center">
+                <button id="get-location-btn" class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="translate" data-pt="📍 Usar Minha Localização" data-en="📍 Use My Location">📍 Usar Minha Localização</span>
+                </button>
+            </div>
+            <div id="location-status" class="mt-3 text-center text-sm hidden">
+                <span class="text-green-600 font-semibold">
+                    <i class="fas fa-check-circle"></i>
+                    <span class="translate" data-pt="✓ Localização capturada!" data-en="✓ Location captured!">✓ Localização capturada!</span>
+                </span>
+            </div>
         </div>
 
         <!-- Pratos Principais -->
@@ -793,17 +808,28 @@
         let currentLang = 'pt';
         let currentItem = null;
         let selectedOptions = {};
+        let userLocation = null;
 
         const translations = {
             pt: {
                 namePlaceholder: 'Seu nome',
                 phonePlaceholder: 'Seu telefone/WhatsApp',
-                emptyCart: 'Seu carrinho está vazio'
+                addressPlaceholder: 'Seu endereço ou ponto de referência (opcional)',
+                emptyCart: 'Seu carrinho está vazio',
+                locationError: 'Não foi possível obter sua localização. Por favor, ative o GPS e permita o acesso.',
+                locationSuccess: '✓ Localização capturada!',
+                locationButton: '📍 Usar Minha Localização',
+                gettingLocation: '📍 Obtendo localização...'
             },
             en: {
                 namePlaceholder: 'Your name',
                 phonePlaceholder: 'Your phone/WhatsApp',
-                emptyCart: 'Your cart is empty'
+                addressPlaceholder: 'Your address or landmark (optional)',
+                emptyCart: 'Your cart is empty',
+                locationError: 'Could not get your location. Please enable GPS and allow access.',
+                locationSuccess: '✓ Location captured!',
+                locationButton: '📍 Use My Location',
+                gettingLocation: '📍 Getting location...'
             }
         };
 
@@ -818,8 +844,87 @@
 
             document.getElementById('customer-name').placeholder = translations[currentLang].namePlaceholder;
             document.getElementById('customer-phone').placeholder = translations[currentLang].phonePlaceholder;
+            document.getElementById('customer-address').placeholder = translations[currentLang].addressPlaceholder;
             
             updateCartDisplay();
+        }
+
+        function getLocation() {
+            const btn = document.getElementById('get-location-btn');
+            const statusDiv = document.getElementById('location-status');
+            
+            // Mostrar status de carregamento
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span>${translations[currentLang].gettingLocation}</span>`;
+            btn.disabled = true;
+            statusDiv.classList.add('hidden');
+            
+            if (!navigator.geolocation) {
+                alert(currentLang === 'pt' 
+                    ? 'Seu navegador não suporta geolocalização.' 
+                    : 'Your browser does not support geolocation.');
+                resetLocationButton();
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    userLocation = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                        accuracy: position.coords.accuracy
+                    };
+                    
+                    // Mostrar sucesso
+                    statusDiv.innerHTML = `
+                        <span class="text-green-600 font-semibold">
+                            <i class="fas fa-check-circle"></i>
+                            <span>${translations[currentLang].locationSuccess}</span>
+                        </span>
+                    `;
+                    statusDiv.classList.remove('hidden');
+                    
+                    resetLocationButton();
+                    
+                    console.log('Localização capturada:', userLocation);
+                },
+                function(error) {
+                    console.error('Erro ao obter localização:', error);
+                    
+                    let errorMsg = translations[currentLang].locationError;
+                    
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMsg = currentLang === 'pt' 
+                                ? 'Você negou o acesso à localização. Por favor, permita o acesso nas configurações.' 
+                                : 'You denied location access. Please allow access in settings.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMsg = currentLang === 'pt' 
+                                ? 'Informação de localização indisponível.' 
+                                : 'Location information unavailable.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMsg = currentLang === 'pt' 
+                                ? 'A solicitação expirou. Tente novamente.' 
+                                : 'The request timed out. Try again.';
+                            break;
+                    }
+                    
+                    alert(errorMsg);
+                    resetLocationButton();
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        function resetLocationButton() {
+            const btn = document.getElementById('get-location-btn');
+            btn.innerHTML = `<i class="fas fa-map-marker-alt"></i> <span>${translations[currentLang].locationButton}</span>`;
+            btn.disabled = false;
         }
 
         function switchMenu(menuName) {
@@ -965,6 +1070,7 @@
                         (currentLang === 'pt' ? 'Cliente' : 'Customer');
             const phone = document.getElementById('customer-phone').value.trim() || 
                          (currentLang === 'pt' ? 'Não informado' : 'Not provided');
+            const address = document.getElementById('customer-address').value.trim();
             
             if (cart.length === 0) {
                 alert(currentLang === 'pt' ? 'Seu carrinho está vazio!' : 'Your cart is empty!');
@@ -972,15 +1078,32 @@
             }
 
             const header = currentLang === 'pt' 
-                ? `*❤️ NOVO PEDIDO - LOVE CAFE ❤️*\n*Ponta de Ouro, Moçambique 🇲🇿*\n\n`
-                : `*❤️ NEW ORDER - LOVE CAFE ❤️*\n*Ponta de Ouro, Mozambique 🇲🇿*\n\n`;
+                ? `*❤️ NOVO PEDIDO DELIVERY - LOVE CAFE ❤️*\n*Ponta de Ouro, Moçambique 🇲🇿*\n\n`
+                : `*❤️ NEW DELIVERY ORDER - LOVE CAFE ❤️*\n*Ponta de Ouro, Mozambique 🇲🇿*\n\n`;
             
             let message = header;
             message += `*👤 ${currentLang === 'pt' ? 'Nome' : 'Name'}:* ${name}\n`;
             message += `*📱 ${currentLang === 'pt' ? 'Telefone' : 'Phone'}:* ${phone}\n`;
+            
+            // Adicionar endereço se fornecido
+            if (address) {
+                message += `*🏠 ${currentLang === 'pt' ? 'Endereço' : 'Address'}:* ${address}\n`;
+            }
+            
+            // Adicionar localização GPS se disponível
+            if (userLocation) {
+                message += `*📍 ${currentLang === 'pt' ? 'Localização GPS' : 'GPS Location'}:*\n`;
+                message += `   Latitude: ${userLocation.latitude.toFixed(6)}\n`;
+                message += `   Longitude: ${userLocation.longitude.toFixed(6)}\n`;
+                message += `   🗺️ Google Maps: https://www.google.com/maps?q=${userLocation.latitude},${userLocation.longitude}\n`;
+                message += `   📊 ${currentLang === 'pt' ? 'Precisão' : 'Accuracy'}: ${Math.round(userLocation.accuracy)}m\n`;
+            } else {
+                message += `*📍 ${currentLang === 'pt' ? 'Localização' : 'Location'}:* ${currentLang === 'pt' ? 'Não fornecida' : 'Not provided'}\n`;
+            }
+            
             message += `*📅 ${currentLang === 'pt' ? 'Data' : 'Date'}:* ${new Date().toLocaleDateString('pt-MZ')}\n`;
             message += `*🕐 ${currentLang === 'pt' ? 'Hora' : 'Time'}:* ${new Date().toLocaleTimeString('pt-MZ')}\n\n`;
-            message += `*━━━ ${currentLang === 'pt' ? 'PEDIDO' : 'ORDER'} ━━━*\n\n`;
+            message += `*━━━ ${currentLang === 'pt' ? 'ITENS DO PEDIDO' : 'ORDER ITEMS'} ━━━*\n\n`;
 
             let total = 0;
             cart.forEach((item, idx) => {
@@ -997,7 +1120,12 @@
 
             message += `*━━━━━━━━━━━━━━━*\n`;
             message += `*💰 TOTAL: MZN ${total}*\n\n`;
-            message += `_${currentLang === 'pt' ? 'Obrigado pela preferência!' : 'Thank you for your order!'}_ ❤️`;
+            
+            if (!userLocation) {
+                message += `⚠️ *${currentLang === 'pt' ? 'ATENÇÃO' : 'ATTENTION'}:* ${currentLang === 'pt' ? 'Localização GPS não fornecida. Por favor, informe seu endereço completo.' : 'GPS location not provided. Please provide your full address.'}\n\n`;
+            }
+            
+            message += `_${currentLang === 'pt' ? 'Obrigado pela preferência! 🌅' : 'Thank you for your order! 🌅'}_ ❤️`;
 
             const whatsappNumber = '258868532678';
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -1007,7 +1135,10 @@
             closeCart();
             document.getElementById('confirmation-modal').classList.add('active');
             
+            // Limpar carrinho e localização
             cart = [];
+            userLocation = null;
+            document.getElementById('location-status').classList.add('hidden');
             updateCartDisplay();
         }
 
@@ -1019,6 +1150,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('customer-name').placeholder = translations.pt.namePlaceholder;
             document.getElementById('customer-phone').placeholder = translations.pt.phonePlaceholder;
+            document.getElementById('customer-address').placeholder = translations.pt.addressPlaceholder;
             
             // Close modals on backdrop click
             document.querySelectorAll('.modal').forEach(modal => {
