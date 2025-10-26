@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Cafe - Ponta de Ouro</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <style>
         * {
             margin: 0;
@@ -14,35 +12,45 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #c41e3a;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
+            background: #000;
         }
 
+        /* NAVBAR */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 1.2rem 5%;
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
         }
 
         .logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #ff4757;
+            color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
@@ -54,11 +62,11 @@
         }
 
         .nav-links a:hover {
-            color: #ff4757;
+            color: var(--primary);
         }
 
         .lang-toggle {
-            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            background: linear-gradient(135deg, var(--primary), #e74c3c);
             color: white;
             border: none;
             padding: 0.6rem 1.2rem;
@@ -69,107 +77,88 @@
         }
 
         .lang-toggle:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
+        /* HERO */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.199), rgba(0, 0, 0, 0.185)),
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
                         url('img/mockup_love_cafe_landing_page\ edited.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: auto;
+            background-attachment: fixed;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
             color: white;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 150px;
-       
+            padding: 100px 20px 60px;
         }
 
         .hero-content {
-            z-index: 2;
-            padding: 2rem;
-            animation: fadeInUp 1s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            max-width: 800px;
         }
 
         .hero h1 {
-            font-size: 5rem;
-            margin-bottom: 1rem;
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-        
+            letter-spacing: 5px;
+            color: var(--primary);
+            text-shadow: 0 0 30px rgba(196, 30, 58, 0.8);
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 3vw, 1.4rem);
             margin-bottom: 2rem;
-            max-width: 700px;
+            line-height: 1.6;
         }
 
         .cta-button {
-            background: linear-gradient(135deg, #ff4757, #ff6b81);
-            color: rgb(0, 0, 0);
-            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary), #e74c3c);
+            color: white;
+            padding: 1.2rem 3rem;
             font-size: 1.2rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.4);
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.5);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.7);
         }
 
+        /* SECTIONS */
         .section {
-            padding: 5rem 5%;
+            padding: 80px 5%;
         }
 
-        .about {
-            background: linear-gradient(180deg, gray, #000);
-            color: white;
+        .section h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
             text-align: center;
+            color: var(--primary);
         }
 
-        .about h2 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            color: #ff6b81;
-        }
-
-        .about p {
-            font-size: 1.2rem;
+        .section-intro {
+            text-align: center;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.8);
             max-width: 800px;
             margin: 0 auto 3rem;
             line-height: 1.8;
+        }
+
+        /* ABOUT */
+        .about {
+            background: linear-gradient(180deg, #1a1a2e 0%, var(--secondary) 100%);
+            color: white;
         }
 
         .features {
@@ -181,472 +170,1007 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             padding: 2rem;
             border-radius: 20px;
-            border: 2px solid rgba(255, 107, 129, 0.3);
-            transition: transform 0.3s;
+            border: 2px solid rgba(196, 30, 58, 0.3);
+            transition: all 0.4s;
+            text-align: center;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            border-color: #ff6b81;
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(196, 30, 58, 0.4);
         }
 
         .feature-card h3 {
-            color: #ffa502;
-            margin-bottom: 1rem;
+            color: var(--accent);
             font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .gallery {
-            background: #000;
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* COUPLE SECTION */
+        .couple-section {
+            background: linear-gradient(180deg, var(--secondary) 0%, #1a1a2e 100%);
             color: white;
         }
 
-        .gallery h2 {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: #ff4757;
-        }
-
-        .gallery-grid {
+        .couple-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .gallery-item {
+        .couple-image-card {
             position: relative;
-            height: 300px;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s;
+            height: 350px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s;
         }
 
-        .gallery-item:hover {
-            transform: scale(1.05);
+        .couple-image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(196, 30, 58, 0.5);
         }
 
-        .gallery-item img {
+        .couple-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
         }
 
-        .gallery-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #ff4757, #ff6b81, #ffa502);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+        .couple-image-card:hover .couple-image {
+            transform: scale(1.1);
+        }
+
+        .couple-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(196, 30, 58, 0.95), transparent);
+            padding: 1.5rem;
             color: white;
         }
 
-        .contact {
-            background: linear-gradient(135deg, #ff4757, #ff6b81);
-            color: white;
+        .couple-overlay h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .couple-recommendations {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 2px solid rgba(196, 30, 58, 0.3);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .couple-recommendations h3 {
             text-align: center;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--accent);
+            margin-bottom: 1rem;
         }
 
-        .contact h2 {
-            font-size: 3rem;
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .recommendation-item {
+            background: rgba(196, 30, 58, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .recommendation-item:hover {
+            transform: translateX(10px);
+            background: rgba(196, 30, 58, 0.2);
+        }
+
+        .recommendation-item h4 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .recommendation-item p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            display: block;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .romance-package {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(196, 30, 58, 0.1);
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+        }
+
+        .romance-package h4 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .romance-package p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .romance-package .price {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* DELIVERY SECTION */
+        .delivery {
+            background: linear-gradient(135deg, #1a1a2e 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .delivery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .delivery-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #e74c3c);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .delivery-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .delivery-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .delivery-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
-        .contact-info {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            line-height: 2;
+        .delivery-feature-item {
+            background: rgba(196, 30, 58, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(196, 30, 58, 0.3);
+            transition: all 0.3s;
         }
 
-        footer {
+        .delivery-feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(196, 30, 58, 0.2);
+            border-color: var(--primary);
+        }
+
+        .feature-text h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-text p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .delivery-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, var(--primary), #e74c3c);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.4);
+            transition: all 0.3s;
+        }
+
+        .delivery-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.6);
+        }
+
+        .delivery-visual {
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .delivery-image-placeholder {
+            background: rgba(196, 30, 58, 0.1);
+            border-radius: 25px;
+            height: 500px;
+            width: 400px;
+            max-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(196, 30, 58, 0.3);
+            background-image: url('img/Love\ Café.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* LOCATION */
+        .location-section {
+            background: linear-gradient(180deg, var(--secondary) 0%, #1a1a2e 100%);
+            color: white;
+        }
+
+        .location-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .location-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(196, 30, 58, 0.4);
+            transition: transform 0.4s;
+        }
+
+        .location-image:hover {
+            transform: scale(1.05);
+        }
+
+        .location-info h3 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .location-details {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(196, 30, 58, 0.3);
+        }
+
+        .location-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(196, 30, 58, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .location-item:hover {
+            background: rgba(196, 30, 58, 0.15);
+            transform: translateX(10px);
+        }
+
+        .map-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), #e74c3c);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.4);
+            transition: all 0.3s;
+        }
+
+        .map-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.6);
+        }
+
+        /* FOOTER */
+        .main-footer {
             background: #000;
             color: white;
-            text-align: center;
-            padding: 2rem;
+            padding: 3rem 5%;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .social-icons a {
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* RESPONSIVO MOBILE - 2 COLUNAS */
+        @media (max-width: 968px) {
+            .nav-links a:not(.lang-toggle) {
+                display: none;
             }
 
-            .nav-links {
+            .hero {
+                background-attachment: scroll;
+                padding: 120px 20px 60px;
+            }
+
+            .section {
+                padding: 60px 4%;
+            }
+
+            /* 2 COLUNAS NO MOBILE */
+            .features,
+            .couple-gallery,
+            .recommendations-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .couple-image-card {
+                height: 250px;
+            }
+
+            .couple-recommendations {
+                padding: 2rem 1.5rem;
+            }
+
+            .recommendation-item {
+                padding: 1.2rem;
+            }
+
+            /* DELIVERY 2 COLUNAS */
+            .delivery-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .delivery-features {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
+            }
+
+            .delivery-feature-item {
+                padding: 1rem;
+            }
+
+            .delivery-visual {
+                min-height: 300px;
+            }
+
+            .delivery-image-placeholder {
+                height: 300px;
+                width: 100%;
+            }
+
+            /* LOCATION 1 COLUNA */
+            .location-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* MOBILE PEQUENO - MANTÉM 2 COLUNAS */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 50px 3%;
+            }
+
+            /* MANTÉM 2 COLUNAS */
+            .features,
+            .couple-gallery,
+            .recommendations-grid,
+            .delivery-features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .feature-card,
+            .couple-image-card {
+                height: 200px;
+                padding: 1rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .feature-card p {
                 font-size: 0.9rem;
             }
 
-            .features {
-                grid-template-columns: 1fr;
+            .couple-overlay {
+                padding: 1rem;
+            }
+
+            .couple-overlay h4 {
+                font-size: 1.1rem;
+            }
+
+            .couple-overlay p {
+                font-size: 0.85rem;
+            }
+
+            .recommendation-item {
+                padding: 1rem;
+            }
+
+            .recommendation-item h4 {
+                font-size: 1.1rem;
+            }
+
+            .recommendation-item p {
+                font-size: 0.85rem;
+            }
+
+            .delivery-feature-item {
+                padding: 0.8rem;
+            }
+
+            .feature-text h3 {
+                font-size: 1rem;
+            }
+
+            .feature-text p {
+                font-size: 0.85rem;
+            }
+
+            .cta-button,
+            .delivery-button,
+            .map-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="logo">❤️ Love Cafe</div>
+        <div class="logo">Love Cafe</div>
         <div class="nav-links">
-            <a href="#home" class="nav-link" data-pt="Início" data-en="Home">Início</a>
-            <a href="#about" class="nav-link" data-pt="Sobre" data-en="About">Sobre</a>
-            <a href="#gallery" class="nav-link" data-pt="Galeria" data-en="Gallery">Galeria</a>
-            <a href="#contact" class="nav-link" data-pt="Contato" data-en="Contact">Contato</a>
+            <a href="#home" data-translate="nav-home">Início</a>
+            <a href="#about" data-translate="nav-about">Sobre</a>
+            <a href="#casal" data-translate="nav-couples">Casais</a>
+            <a href="#delivery" data-translate="nav-delivery">Delivery</a>
+            <a href="#localizacao" data-translate="nav-contact">Contato</a>
             <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
         </div>
     </nav>
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1 class="hero-title" data-pt="LOVE CAFE" data-en="LOVE CAFE">LOVE CAFE</h1>
-            <p class="hero-subtitle" data-pt="Experiência única em Ponta de Ouro - Onde o sol nasce e os momentos se tornam eternos" data-en="Unique experience in Ponta de Ouro - Where the sun rises and moments become eternal">
-                Experiência única em Ponta de Ouro - Onde o sol nasce e os momentos se tornam eternos
-            </p>
-            <a href="love_cafe_delivery.html">
-            <button class="cta-button" data-pt="RESERVE SUA MESA" data-en="RESERVE YOUR TABLE">RESERVE SUA MESA</button>
-=======
-            <button class="cta-button" data-pt="RESERVE SUA MESA" data-en="RESERVE YOUR TABLE">RESERVE SUA MESA</button>
->>>>>>> 897fef35c13fee308a25f2b9ecc7a9c0289dad52
+            <h1>LOVE CAFE</h1>
+            <p data-translate="hero-subtitle">Experiência única em Ponta de Ouro - Onde o sol nasce e os momentos se tornam eternos</p>
+            <a href="cardapio.html">
+                <button class="cta-button" data-translate="hero-cta">EXPLORE NOSSO CARDÁPIO</button>
             </a>
         </div>
-        
     </section>
 
     <section class="section about" id="about">
-        <h2 class="about-title" data-pt="Bem-vindo ao Paraíso" data-en="Welcome to Paradise">Bem-vindo ao Paraíso</h2>
-        <p class="about-text" data-pt="Há mais de 5 anos, o Love Cafe tem sido o coração vibrante de Ponta de Ouro, uma das zonas turísticas mais deslumbrantes de Moçambique. Localizado estrategicamente em um ponto privilegiado, oferecemos a você a oportunidade única de contemplar o nascer do sol enquanto desfruta de momentos inesquecíveis." data-en="For over 5 years, Love Cafe has been the vibrant heart of Ponta de Ouro, one of Mozambique's most stunning tourist areas. Strategically located at a prime spot, we offer you the unique opportunity to witness the sunrise while enjoying unforgettable moments.">
-            Há mais de 5 anos, o Love Cafe tem sido o coração vibrante de Ponta de Ouro, uma das zonas turísticas mais deslumbrantes de Moçambique. Localizado estrategicamente em um ponto privilegiado, oferecemos a você a oportunidade única de contemplar o nascer do sol enquanto desfruta de momentos inesquecíveis.
-        </p>
+        <h2 data-translate="about-title">Bem-vindo ao Paraíso</h2>
+        <p class="section-intro" data-translate="about-text">Há mais de 5 anos, o Love Cafe tem sido o coração vibrante de Ponta de Ouro, uma das zonas turísticas mais deslumbrantes de Moçambique. Localizado estrategicamente em um ponto privilegiado, oferecemos a você a oportunidade única de contemplar o nascer do sol enquanto desfruta de momentos inesquecíveis.</p>
 
         <div class="features">
             <div class="feature-card">
-                <img src="" alt="">
-                <h3 class="feature-title" data-pt="Vista Espetacular" data-en="Spectacular View">Vista Espetacular</h3>
-                <p class="feature-text" data-pt="Nascer do sol inesquecível direto da sua mesa" data-en="Unforgettable sunrise right from your table">Nascer do sol inesquecível direto da sua mesa</p>
+                <h3>🌅 <span data-translate="feature1-title">Vista Espetacular</span></h3>
+                <p data-translate="feature1-text">Nascer do sol inesquecível direto da sua mesa</p>
             </div>
             <div class="feature-card">
-                <h3>🎉</h3>
-                <h3 class="feature-title" data-pt="Eventos Exclusivos" data-en="Exclusive Events">Eventos Exclusivos</h3>
-                <p class="feature-text" data-pt="Espaço perfeito para festas e celebrações" data-en="Perfect space for parties and celebrations">Espaço perfeito para festas e celebrações</p>
+                <h3>🎉 <span data-translate="feature2-title">Eventos Exclusivos</span></h3>
+                <p data-translate="feature2-text">Espaço perfeito para festas e celebrações</p>
             </div>
             <div class="feature-card">
-                <h3>🏖️</h3>
-                <h3 class="feature-title" data-pt="Clima de Praia" data-en="Beach Atmosphere">Clima de Praia</h3>
-                <p class="feature-text" data-pt="Ambiente relaxante à beira-mar" data-en="Relaxing seaside environment">Ambiente relaxante à beira-mar</p>
+                <h3>🏖️ <span data-translate="feature3-title">Clima de Praia</span></h3>
+                <p data-translate="feature3-text">Ambiente relaxante à beira-mar</p>
             </div>
             <div class="feature-card">
-                <h3>⭐</h3>
-                <h3 class="feature-title" data-pt="5+ Anos de Excelência" data-en="5+ Years of Excellence">5+ Anos de Excelência</h3>
-                <p class="feature-text" data-pt="Tradição e qualidade comprovadas" data-en="Proven tradition and quality">Tradição e qualidade comprovadas</p>
+                <h3>⭐ <span data-translate="feature4-title">5+ Anos</span></h3>
+                <p data-translate="feature4-text">Tradição e qualidade comprovadas</p>
             </div>
         </div>
     </section>
 
-    <section class="nightlife-section">
-        <div class="nightlife-content">
-            <div class="nightlife-intro">
-                <h2>
-                    <span class="lang-pt">Noites Mágicas no Florestinha</span>
-                    <span class="lang-en hidden">Magical Nights at Florestinha</span>
-                </h2>
-                <p>
-                    <span class="lang-pt">Quando o sol se põe, o Florestinha do Índico se transforma em um cenário mágico. As luzes suaves, a brisa do mar, o som das ondas e a música ao vivo criam uma atmosfera única e romântica. Nossos shows e eventos especiais já receberam centenas de pessoas que buscam viver momentos inesquecíveis à beira-mar. Cada noite é uma celebração da vida, da boa música e da excelente companhia.</span>
-                    <span class="lang-en hidden">When the sun sets, Florestinha do Índico transforms into a magical setting. The soft lights, sea breeze, sound of waves and live music create a unique and romantic atmosphere. Our shows and special events have already welcomed hundreds of people seeking to live unforgettable moments by the sea. Each night is a celebration of life, good music and excellent company.</span>
-                </p>
+    <section class="section couple-section" id="casal">
+        <h2>💕 <span data-translate="couple-title">Experiências Românticas</span></h2>
+        <p class="section-intro" data-translate="couple-subtitle">Momentos especiais merecem sabores inesquecíveis. Crie memórias perfeitas com quem ama.</p>
+        
+        <div class="couple-gallery">
+            <div class="couple-image-card">
+                <img src="img/glasses of wine.jpeg" alt="Taças de Vinho" class="couple-image">
+                <div class="couple-overlay">
+                    <h4 data-translate="gallery1-title">Taças de Vinho</h4>
+                    <p data-translate="gallery1-text">Vista panorâmica do oceano</p>
+                </div>
+            </div>
+            <div class="couple-image-card">
+                <img src="img/Couple cofee.jpeg" alt="Mesa romântica" class="couple-image">
+                <div class="couple-overlay">
+                    <h4 data-translate="gallery2-title">Mesa Romântica</h4>
+                    <p data-translate="gallery2-text">Ambiente intimista</p>
+                </div>
+            </div>
+            <div class="couple-image-card">
+                <img src="img/Azure - понравился цвет_ _Сделай репост 🔆__https___vk_com_wall-224299363_1635.jpeg" alt="Jantar à luz de velas" class="couple-image">
+                <div class="couple-overlay">
+                    <h4 data-translate="gallery3-title">Luz de Velas</h4>
+                    <p data-translate="gallery3-text">Ocasiões especiais</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="couple-recommendations">
+            <h3>✨ <span data-translate="recommendations-title">Recomendações Especiais</span></h3>
+            <p style="text-align: center; color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;" data-translate="recommendations-subtitle">Selecionamos as melhores opções para tornar o seu momento único</p>
+            
+            <div class="recommendations-grid">
+                <div class="recommendation-item">
+                    <h4>🦞 <span data-translate="dish1-title">Mariscada para Dois</span></h4>
+                    <p data-translate="dish1-text">Seleção generosa de mariscos frescos: lagosta, camarão, amêijoas e lulas.</p>
+                    <span class="price">3.500 MT</span>
+                </div>
+                <div class="recommendation-item">
+                    <h4>🥜 <span data-translate="dish2-title">Caril de Amendoim</span></h4>
+                    <p data-translate="dish2-text">Prato tradicional moçambicano com camarões gigantes.</p>
+                    <span class="price">2.500 MT</span>
+                </div>
+                <div class="recommendation-item">
+                    <h4>🍷 <span data-translate="dish3-title">Vinho do Porto</span></h4>
+                    <p data-translate="dish3-text">Seleção de vinhos do Porto tinto ou branco.</p>
+                    <span class="price">800 MT</span>
+                </div>
+                <div class="recommendation-item">
+                    <h4>🥂 <span data-translate="dish4-title">Champagne Premium</span></h4>
+                    <p data-translate="dish4-text">Celebre momentos especiais com champagnes importados.</p>
+                    <span class="price">1.200 MT</span>
+                </div>
             </div>
 
-            <h3>
-                <span class="lang-pt"> Espetáculos Realizados</span>
-                <span class="lang-en hidden"> Past Shows</span>
-            </h3>
-            <h3>
-                <span class="lang-pt">🎉 Próximos Eventos</span>
-                <span class="lang-en hidden">🎉 Upcoming Events</span>
-            </h3>
-
-            <div class="shows-grid">
-                <div class="show-card">
-                    <div class="show-image">
-                        <img src="florestinha img/florestinha show de comida.jpg" alt="festa de comida">
-                        <div class="show-badge">
-                            <span class="lang-pt">NOVIDADE</span>
-                            <span class="lang-en hidden">NEW</span>
-                        </div>
-                    </div>
-                    <div class="show-info">
-                        <h3>
-                            <span class="lang-pt">Noite Acústica</span>
-                            <span class="lang-en hidden">Acoustic Night</span>
-                        </h3>
-                        <p>
-                            <span class="lang-pt">Show especial com músicos acústicos tocando os maiores clássicos da música moçambicana e internacional. Ambiente intimista e romântico perfeito para casais.</span>
-                            <span class="lang-en hidden">Special show with acoustic musicians playing the greatest classics of Mozambican and international music. Intimate and romantic atmosphere perfect for couples.</span>
-                        </p>
-                        <p class="show-date">
-                            <span class="lang-pt">15 de Novembro, 19:00</span>
-                            <span class="lang-en hidden">November 15th, 7:00 PM</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="show-card">
-                    <div class="show-image">
-                        <img src="florestinha img/florestinha event2.jpg" alt="festa esgotada">
-                        <div class="show-badge">
-                            <span class="lang-pt">LIMITADO</span>
-                            <span class="lang-en hidden">LIMITED</span>
-                        </div>
-                    </div>
-                    <div class="show-info">
-                        <h3>
-                            <span class="lang-pt">Festa de Natal</span>
-                            <span class="lang-en hidden">Christmas Party</span>
-                        </h3>
-                        <p>
-                            <span class="lang-pt">Grande celebração de Natal com jantar especial, música ao vivo, DJ e decoração temática. Traga sua família para uma noite inesquecível à beira-mar!</span>
-                            <span class="lang-en hidden">Big Christmas celebration with special dinner, live music, DJ and themed decoration. Bring your family for an unforgettable night by the sea!</span>
-                        </p>
-                        <p class="show-date">📅 
-                            <span class="lang-pt">24 de Dezembro, 20:00</span>
-                            <span class="lang-en hidden">December 24th, 8:00 PM</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="show-card">
-                    <div class="show-image">
-                        <img src="florestinha img/festa florestinha.jpeg" alt="festa">
-                        <div class="show-badge">
-                            <span class="lang-pt">IMPERDÍVEL</span>
-                            <span class="lang-en hidden">UNMISSABLE</span>
-                        </div>
-                    </div>
-                    <div class="show-info">
-                        <h3>
-                            <span class="lang-pt">Réveillon 2026</span>
-                            <span class="lang-en hidden">New Year's Eve 2026</span>
-                        </h3>
-                        <p>
-                            <span class="lang-pt">Receba o ano novo com chave de ouro! Jantar gourmet, open bar premium, shows especiais e queima de fogos espetacular. Reservas abertas - vagas limitadas!</span>
-                            <span class="lang-en hidden">Welcome the new year in style! Gourmet dinner, premium open bar, special shows and spectacular fireworks. Reservations open - limited spots!</span>
-                        </p>
-                        <p class="show-date">
-                            <span class="lang-pt">31 de Dezembro, 21:00</span>
-                            <span class="lang-en hidden">December 31st, 9:00 PM</span>
-                        </p>
-                    </div>
-                </div>
+            <div class="romance-package">
+                <h4>🎁 <span data-translate="package-title">Pacote Romance Completo</span></h4>
+                <p data-translate="package-description">Mesa decorada + Mariscada para Dois + Champagne + Sobremesa especial</p>
+                <span class="price">5.800 MT</span>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;"><em data-translate="package-note">*Reserva com 24h de antecedência</em></p>
             </div>
         </div>
     </section>
 
-      <section class="couple-section" id="casal">
-        <div class="section-header">
-            <h2> Experiências Românticas para Casais</h2>
-            <p>Momentos especiais merecem sabores inesquecíveis. Crie memórias perfeitas com quem ama.</p>
-        </div>
-        <div class="couple-content">
-            <div class="couple-gallery">
-                <div class="couple-image-card">
-                    <img src="img/glasses of wine.jpeg" alt="Jantar ao pôr do sol" class="couple-image">
-                    <div class="couple-overlay">
-                        <h4>Taças Vinhos</h4>
-                        <p>Vista panorâmica do oceano</p>
-                    </div>
-                </div>
-                <div class="couple-image-card">
-                    <img src="img/Couple cofee.jpeg" alt="Mesa romântica" class="couple-image">
-                    <div class="couple-overlay">
-                        <h4>Mesa Romântica</h4>
-                        <p>Ambiente intimista e acolhedor</p>
-                    </div>
-                </div>
-                <div class="couple-image-card">
-                    <img src="img/Azure - понравился цвет_ _Сделай репост 🔆__https___vk_com_wall-224299363_1635.jpeg" alt="Jantar à luz de velas" class="couple-image">
-                    <div class="couple-overlay">
-                        <h4>Jantar à Luz de Velas</h4>
-                        <p>Perfeito para ocasiões especiais</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="couple-recommendations">
-                <h3 style="text-align: center; font-size: 2.5rem; color: #c41e3a; margin-bottom: 10px;">Recomendações Especiais para Casais</h3>
-                <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 1.1rem;">Selecionamos as melhores opções para tornar o seu momento único</p>
+    <section class="section delivery" id="delivery">
+        <div class="delivery-container">
+            <div class="delivery-content">
+                <div class="delivery-badge">🆕 <span data-translate="delivery-badge">NOVO SERVIÇO</span></div>
+                <h2 class="delivery-title" data-translate="delivery-title">Delivery Love Cafe</h2>
+                <p class="delivery-subtitle" data-translate="delivery-subtitle">Sabores de Ponta de Ouro na sua casa!</p>
                 
-                <div class="recommendations-grid">
-                    <div class="recommendation-category">
-                        <h3> Pratos Românticos</h3>
-                        <div class="recommendation-item">
-                            <h4>Mariscada para Dois</h4>
-                            <p>Uma seleção generosa de mariscos frescos: lagosta, camarão, amêijoas e lulas. Perfeito para partilhar.</p>
-                            <span class="price">A partir de 3.500 MT</span>
+                <div class="delivery-features">
+                    <div class="delivery-feature-item">
+                        <div class="feature-text">
+                            <h3>⚡ <span data-translate="delivery-feature1">Entrega Rápida</span></h3>
+                            <p data-translate="delivery-feature1-text">Até 40 minutos</p>
                         </div>
-
-                        <div class="recommendation-item">
-                            <h4>Caril de Amendoim com Camarão</h4>
-                            <p>Prato tradicional moçambicano preparado com camarões gigantes e arroz aromático.</p>
-                            <span class="price">A partir de 2.500 MT</span>
+                    </div>
+                    <div class="delivery-feature-item">
+                        <div class="feature-text">
+                            <h3>🦐 <span data-translate="delivery-feature2">Mariscos Frescos</span></h3>
+                            <p data-translate="delivery-feature2-text">Ingredientes selecionados</p>
                         </div>
-
-
-                        <div class="recommendation-item">
-                            <h4>Vinho do Porto</h4>
-                            <p>Seleção de vinhos do Porto tinto ou branco para acompanhar sobremesa.</p>
-                            <span class="price">A partir de 800 MT</span>
+                    </div>
+                    <div class="delivery-feature-item">
+                        <div class="feature-text">
+                            <h3>📱 <span data-translate="delivery-feature3">Pedido Fácil</span></h3>
+                            <p data-translate="delivery-feature3-text">WhatsApp ou online</p>
                         </div>
-
-
-                
+                    </div>
+                    <div class="delivery-feature-item">
+                        <div class="feature-text">
+                            <h3>💝 <span data-translate="delivery-feature4">Qualidade Love</span></h3>
+                            <p data-translate="delivery-feature4-text">Mesma experiência</p>
+                        </div>
                     </div>
                 </div>
 
-                <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #fff5f5, #ffe8e8); border-radius: 15px;">
-                    <h4 style="color: #c41e3a; font-size: 1.5rem; margin-bottom: 15px;">🎁 Pacote Romance Completo</h4>
-                    <p style="color: #666; font-size: 1.1rem; margin-bottom: 20px;">
-                        Mesa decorada com velas e pétalas de rosa + Mariscada para Dois + Garrafa de Champagne + Sobremesa especial
-                    </p>
-                    <p style="color: #c41e3a; font-size: 1.8rem; font-weight: 700;">5.800 MT</p>
-                    <p style="color: #666; font-size: 0.9rem; margin-top: 10px;"><em>*Reserva com 24h de antecedência</em></p>
+                <div style="text-align: center;">
+                    <a href="love_cafe_delivery.html" class="delivery-button">
+                        🚚 <span data-translate="delivery-cta">Pedir Delivery Agora</span>
+                    </a>
+                    <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.8);" data-translate="delivery-area">🌟 Ponta de Ouro e arredores</p>
+                </div>
+            </div>
+            
+            <div class="delivery-visual">
+                <div class="delivery-image-placeholder">
+                    <div style="font-size: 6rem;">🍕</div>
                 </div>
             </div>
         </div>
     </section>
-        <section class="location-section" id="localizacao">
-        <div class="section-header">
-            <h2> Onde Nos Encontrar</h2>
-            <p>Visite-nos no paraíso da Ponta do Ouro</p>
-        </div>
+
+    <section class="section location-section" id="localizacao">
+        <h2>📍 <span data-translate="location-title">Onde Nos Encontrar</span></h2>
+        <p class="section-intro" data-translate="location-subtitle">Visite-nos no paraíso da Ponta do Ouro</p>
+        
         <div class="location-content">
             <div>
-                <img src="img/487154181_1075007821313024_8170534041401318014_n.jpg" alt="Roaz do Índico - Exterior" class="location-image">
+                <img src="img/love cafe parede original.webp" alt="Love café - Exterior" class="location-image">
             </div>
             <div class="location-info">
-                <h3>Visite o Nosso Paraíso</h3>
+                <h3 data-translate="location-heading">Visite o Nosso Paraíso</h3>
                 <div class="location-details">
                     <div class="location-item">
-                        <span class="location-icon"></span>
+                        <span style="font-size: 1.5rem;">📍</span>
                         <div>
-                            <strong>Endereço:</strong><br>
+                            <strong data-translate="location-address-label">Endereço:</strong><br>
                             Ponta do Ouro, Rua A - Praceta 65<br>
                             Maputo, Moçambique
                         </div>
                     </div>
                     <div class="location-item">
-                        <span class="location-icon"></span>
+                        <span style="font-size: 1.5rem;">📞</span>
                         <div>
-                            <strong>Telefone:</strong><br>
+                            <strong data-translate="location-phone-label">Telefone:</strong><br>
                             +258 84 40 88 822
                         </div>
                     </div>
                     <div class="location-item">
-                        <span class="location-icon"></span>
+                        <span style="font-size: 1.5rem;">🕐</span>
                         <div>
-                            <strong>Horário:</strong><br>
-                            Todos os dias: 08:00 - 23:00<br>
-                            <em>Cozinha fecha às 22:00</em>
+                            <strong data-translate="location-hours-label">Horário:</strong><br>
+                            <span data-translate="location-hours-text">Todos os dias: 08:00 - 23:00</span><br>
+                            <em data-translate="location-kitchen">Cozinha fecha às 22:00</em>
                         </div>
                     </div>
                     <div class="location-item">
-                        <span class="location-icon"></span>
+                        <span style="font-size: 1.5rem;">🌊</span>
                         <div>
-                            <strong>Localização:</strong><br>
-                            À beira-mar com vista espetacular
+                            <strong data-translate="location-view-label">Localização:</strong><br>
+                            <span data-translate="location-view-text">À beira-mar com vista espetacular</span>
                         </div>
                     </div>
                 </div>
-                <a href="https://www.google.com/maps/place/Roaz+do+Indico/@-26.8415814,32.8835571,844m/data=!3m2!1e3!4b1!4m6!3m5!1s0x1ee48fbd26b3601f:0x103868ec07c4f3e9!8m2!3d-26.8415862!4d32.886132!16s%2Fg%2F11k2441m8b?entry=ttu&g_ep=EgoyMDI1MTAxMy4wIKXMDSoASAFQAw%3D%3D" class="map-button">Ver no Google Maps</a>
+                <a href="https://www.google.com/maps/place/Love+Cafe+Ponta+do+Ouro/@-26.84045,32.8817116,1007m/data=!3m2!1e3!4b1!4m6!3m5!1s0x1ee48fe45e75bdb5:0x85216b3af24d0e70!8m2!3d-26.84045!4d32.8842865!16s%2Fg%2F11cntphb1g?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D" class="map-button">
+                    🗺️ <span data-translate="location-map-button">Ver no Google Maps</span>
+                </a>
             </div>
         </div>
     </section>
+
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-grid">
-                
-                <div class="footer-col footer-col-left">
-                    <h3 class="footer-title" style="font-family: 'comic Sans MS', cursive;">
-                        Roaz Do Índico
-                    </h3>
-                    <p class="footer-description">
-                        <span class="lang-pt">O sabor autêntico de Moçambique em cada prato, com a hospitalidade calorosa que nos define.</span>
-                        <span class="lang-en hidden">The authentic flavor of Mozambique in every dish, with the warm hospitality that defines us.</span>
-                    </p>
+                <div class="footer-col">
+                    <h3 class="footer-title">Love Café</h3>
+                    <p class="footer-description" data-translate="footer-description">O sabor autêntico de Moçambique em cada prato, com a hospitalidade calorosa que nos define.</p>
                 </div>
                 
-                <div class="footer-col footer-col-center">
-                    <h4 class="footer-subtitle">
-                        <span class="lang-pt">Redes Sociais</span>
-                        <span class="lang-en hidden">Social Media</span>
-                    </h4>
+                <div class="footer-col">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);" data-translate="footer-social">Redes Sociais</h4>
                     <div class="social-icons">
-                        <a href="#" class="social-icon-facebook">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="social-icon-instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-icon-whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 
-                <div class="footer-col footer-col-right">
-                    <h4 class="footer-subtitle">
-                        <span class="lang-pt">Contato</span>
-                        <span class="lang-en hidden">Contact</span>
-                    </h4>
-                    <p class="contact-detail">
-                        <i class="fas fa-phone mr-2"></i>
-                        +258 860 000 000
+                <div class="footer-col">
+                    <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);" data-translate="footer-contact">Contato</h4>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 0.5rem;">
+                        <i class="fas fa-phone" style="margin-right: 0.5rem;"></i>+258 84 40 88 822
                     </p>
-                    <p class="contact-detail">
-                        <i class="fas fa-envelope mr-2"></i>
-                        info@florestinha.co.mz
+                    <p style="color: rgba(255, 255, 255, 0.7);">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>info@lovecafe.co.mz
                     </p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>
-                    <span class="lang-pt">&copy; 2025 Roaz do Índico. Todos os direitos reservados. 🇲🇿</span>
-                    <span class="lang-en hidden">&copy; 2025 Roaz do Índico. All rights reserved. 🇲🇿</span>
-                </p>
-                <p class="footer-bottom-text-small">
-                    powered by zeinadine
-                </p>
+                <p data-translate="footer-rights">&copy; 2025 Love Café. Todos os direitos reservados. 🇲🇿</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">powered by zeinadine</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Sistema de tradução bilíngue
+        const translations = {
+            pt: {
+                'nav-home': 'Início',
+                'nav-about': 'Sobre',
+                'nav-couples': 'Casais',
+                'nav-delivery': 'Delivery',
+                'nav-contact': 'Contato',
+                'hero-subtitle': 'Experiência única em Ponta de Ouro - Onde o sol nasce e os momentos se tornam eternos',
+                'hero-cta': 'EXPLORE NOSSO CARDÁPIO',
+                'about-title': 'Bem-vindo ao Paraíso',
+                'about-text': 'Há mais de 5 anos, o Love Cafe tem sido o coração vibrante de Ponta de Ouro, uma das zonas turísticas mais deslumbrantes de Moçambique. Localizado estrategicamente em um ponto privilegiado, oferecemos a você a oportunidade única de contemplar o nascer do sol enquanto desfruta de momentos inesquecíveis.',
+                'feature1-title': 'Vista Espetacular',
+                'feature1-text': 'Nascer do sol inesquecível direto da sua mesa',
+                'feature2-title': 'Eventos Exclusivos',
+                'feature2-text': 'Espaço perfeito para festas e celebrações',
+                'feature3-title': 'Clima de Praia',
+                'feature3-text': 'Ambiente relaxante à beira-mar',
+                'feature4-title': '5+ Anos',
+                'feature4-text': 'Tradição e qualidade comprovadas',
+                'couple-title': 'Experiências Românticas',
+                'couple-subtitle': 'Momentos especiais merecem sabores inesquecíveis. Crie memórias perfeitas com quem ama.',
+                'gallery1-title': 'Taças de Vinho',
+                'gallery1-text': 'Vista panorâmica do oceano',
+                'gallery2-title': 'Mesa Romântica',
+                'gallery2-text': 'Ambiente intimista',
+                'gallery3-title': 'Luz de Velas',
+                'gallery3-text': 'Ocasiões especiais',
+                'recommendations-title': 'Recomendações Especiais',
+                'recommendations-subtitle': 'Selecionamos as melhores opções para tornar o seu momento único',
+                'dish1-title': 'Mariscada para Dois',
+                'dish1-text': 'Seleção generosa de mariscos frescos: lagosta, camarão, amêijoas e lulas.',
+                'dish2-title': 'Caril de Amendoim',
+                'dish2-text': 'Prato tradicional moçambicano com camarões gigantes.',
+                'dish3-title': 'Vinho do Porto',
+                'dish3-text': 'Seleção de vinhos do Porto tinto ou branco.',
+                'dish4-title': 'Champagne Premium',
+                'dish4-text': 'Celebre momentos especiais com champagnes importados.',
+                'package-title': 'Pacote Romance Completo',
+                'package-description': 'Mesa decorada + Mariscada para Dois + Champagne + Sobremesa especial',
+                'package-note': '*Reserva com 24h de antecedência',
+                'delivery-badge': 'NOVO SERVIÇO',
+                'delivery-title': 'Delivery Love Cafe',
+                'delivery-subtitle': 'Sabores de Ponta de Ouro na sua casa!',
+                'delivery-feature1': 'Entrega Rápida',
+                'delivery-feature1-text': 'Até 40 minutos',
+                'delivery-feature2': 'Mariscos Frescos',
+                'delivery-feature2-text': 'Ingredientes selecionados',
+                'delivery-feature3': 'Pedido Fácil',
+                'delivery-feature3-text': 'WhatsApp ou online',
+                'delivery-feature4': 'Qualidade Love',
+                'delivery-feature4-text': 'Mesma experiência',
+                'delivery-cta': 'Pedir Delivery Agora',
+                'delivery-area': '🌟 Ponta de Ouro e arredores',
+                'location-title': 'Onde Nos Encontrar',
+                'location-subtitle': 'Visite-nos no paraíso da Ponta do Ouro',
+                'location-heading': 'Visite o Nosso Paraíso',
+                'location-address-label': 'Endereço:',
+                'location-phone-label': 'Telefone:',
+                'location-hours-label': 'Horário:',
+                'location-hours-text': 'Todos os dias: 08:00 - 23:00',
+                'location-kitchen': 'Cozinha fecha às 22:00',
+                'location-view-label': 'Localização:',
+                'location-view-text': 'À beira-mar com vista espetacular',
+                'location-map-button': 'Ver no Google Maps',
+                'footer-description': 'O sabor autêntico de Moçambique em cada prato, com a hospitalidade calorosa que nos define.',
+                'footer-social': 'Redes Sociais',
+                'footer-contact': 'Contato',
+                'footer-rights': '© 2025 Love Café. Todos os direitos reservados. 🇲🇿'
+            },
+            en: {
+                'nav-home': 'Home',
+                'nav-about': 'About',
+                'nav-couples': 'Couples',
+                'nav-delivery': 'Delivery',
+                'nav-contact': 'Contact',
+                'hero-subtitle': 'Unique experience in Ponta de Ouro - Where the sun rises and moments become eternal',
+                'hero-cta': 'EXPLORE OUR MENU',
+                'about-title': 'Welcome to Paradise',
+                'about-text': 'For over 5 years, Love Cafe has been the vibrant heart of Ponta de Ouro, one of Mozambique\'s most stunning tourist areas. Strategically located at a prime spot, we offer you the unique opportunity to witness the sunrise while enjoying unforgettable moments.',
+                'feature1-title': 'Spectacular View',
+                'feature1-text': 'Unforgettable sunrise right from your table',
+                'feature2-title': 'Exclusive Events',
+                'feature2-text': 'Perfect space for parties and celebrations',
+                'feature3-title': 'Beach Atmosphere',
+                'feature3-text': 'Relaxing seaside environment',
+                'feature4-title': '5+ Years',
+                'feature4-text': 'Proven tradition and quality',
+                'couple-title': 'Romantic Experiences',
+                'couple-subtitle': 'Special moments deserve unforgettable flavors. Create perfect memories with the one you love.',
+                'gallery1-title': 'Wine Glasses',
+                'gallery1-text': 'Panoramic ocean view',
+                'gallery2-title': 'Romantic Table',
+                'gallery2-text': 'Intimate atmosphere',
+                'gallery3-title': 'Candlelight',
+                'gallery3-text': 'Special occasions',
+                'recommendations-title': 'Special Recommendations',
+                'recommendations-subtitle': 'We selected the best options to make your moment unique',
+                'dish1-title': 'Seafood Platter for Two',
+                'dish1-text': 'Generous selection of fresh seafood: lobster, shrimp, clams and squid.',
+                'dish2-title': 'Peanut Curry',
+                'dish2-text': 'Traditional Mozambican dish with giant shrimp.',
+                'dish3-title': 'Port Wine',
+                'dish3-text': 'Selection of red or white Port wines.',
+                'dish4-title': 'Premium Champagne',
+                'dish4-text': 'Celebrate special moments with imported champagnes.',
+                'package-title': 'Complete Romance Package',
+                'package-description': 'Decorated table + Seafood for Two + Champagne + Special dessert',
+                'package-note': '*Reservation required 24h in advance',
+                'delivery-badge': 'NEW SERVICE',
+                'delivery-title': 'Love Cafe Delivery',
+                'delivery-subtitle': 'Ponta de Ouro flavors at your home!',
+                'delivery-feature1': 'Fast Delivery',
+                'delivery-feature1-text': 'Up to 40 minutes',
+                'delivery-feature2': 'Fresh Seafood',
+                'delivery-feature2-text': 'Selected ingredients',
+                'delivery-feature3': 'Easy Order',
+                'delivery-feature3-text': 'WhatsApp or online',
+                'delivery-feature4': 'Love Quality',
+                'delivery-feature4-text': 'Same experience',
+                'delivery-cta': 'Order Delivery Now',
+                'delivery-area': '🌟 Ponta de Ouro and surroundings',
+                'location-title': 'Find Us',
+                'location-subtitle': 'Visit us in the paradise of Ponta do Ouro',
+                'location-heading': 'Visit Our Paradise',
+                'location-address-label': 'Address:',
+                'location-phone-label': 'Phone:',
+                'location-hours-label': 'Hours:',
+                'location-hours-text': 'Every day: 08:00 - 23:00',
+                'location-kitchen': 'Kitchen closes at 22:00',
+                'location-view-label': 'Location:',
+                'location-view-text': 'Beachfront with spectacular view',
+                'location-map-button': 'View on Google Maps',
+                'footer-description': 'The authentic flavor of Mozambique in every dish, with the warm hospitality that defines us.',
+                'footer-social': 'Social Media',
+                'footer-contact': 'Contact',
+                'footer-rights': '© 2025 Love Café. All rights reserved. 🇲🇿'
+            }
+        };
+
         let currentLang = 'pt';
 
         function toggleLanguage() {
             currentLang = currentLang === 'pt' ? 'en' : 'pt';
             const btn = document.querySelector('.lang-toggle');
             btn.textContent = currentLang === 'pt' ? 'EN' : 'PT';
-
-            document.querySelectorAll('[data-pt][data-en]').forEach(el => {
-                el.textContent = el.getAttribute(`data-${currentLang}`);
+            
+            // Atualizar todos os elementos com data-translate
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[currentLang][key]) {
+                    element.textContent = translations[currentLang][key];
+                }
             });
         }
 
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate elements on scroll
+        document.querySelectorAll('.feature-card, .couple-image-card, .recommendation-item, .delivery-feature-item, .location-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect no hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         });
     </script>
 </body>
